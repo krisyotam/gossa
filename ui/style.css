@@ -1,81 +1,61 @@
 /* ============================================================================
  * FILE:  style.css
  * ROLE:  STYLESHEET
- * PURPOSE:   Gossa file browser theme, krisyotam.com design language
+ * PURPOSE:   Gossa file browser — krisyotam.com cell-strip design language
  * ========================================================================== */
 
-/* -- CSS Variables: Light/Dark Mode ---------------------------------------- */
+/* -- Variables ------------------------------------------------------------- */
 :root {
   --bg: hsl(0 0% 98%);
-  --bg-elevated: hsl(0 0% 96%);
+  --bg-muted: hsl(0 0% 96%);
+  --bg-muted-30: hsla(0,0%,92%,0.3);
   --fg: hsl(0 0% 20%);
   --fg-muted: hsl(0 0% 50%);
   --border: hsl(0 0% 88%);
-  --hover: hsl(0 0% 94%);
+  --hover: hsla(0,0%,92%,0.3);
   --highlight: hsl(0 0% 90%);
   --accent: hsl(0 0% 10%);
-  --bar-bg: hsl(0 0% 95%);
-  --scrollbar-bg: hsl(0 0% 95%);
-  --scrollbar-thumb: hsl(0 0% 75%);
-  --icon-invert: 0%;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: hsl(0 0% 7%);
-    --bg-elevated: hsl(0 0% 12%);
-    --fg: hsl(0 0% 90%);
-    --fg-muted: hsl(0 0% 55%);
-    --border: hsl(0 0% 18%);
-    --hover: hsl(0 0% 14%);
-    --highlight: hsl(0 0% 20%);
-    --accent: hsl(0 0% 90%);
-    --bar-bg: hsl(0 0% 10%);
-    --scrollbar-bg: hsl(0 0% 10%);
-    --scrollbar-thumb: hsl(0 0% 35%);
-    --icon-invert: 85%;
-    color-scheme: dark;
-  }
-}
-
-[data-theme="light"] {
-  --bg: hsl(0 0% 98%);
-  --bg-elevated: hsl(0 0% 96%);
-  --fg: hsl(0 0% 20%);
-  --fg-muted: hsl(0 0% 50%);
-  --border: hsl(0 0% 88%);
-  --hover: hsl(0 0% 94%);
-  --highlight: hsl(0 0% 90%);
-  --accent: hsl(0 0% 10%);
-  --bar-bg: hsl(0 0% 95%);
-  --scrollbar-bg: hsl(0 0% 95%);
-  --scrollbar-thumb: hsl(0 0% 75%);
   --icon-invert: 0%;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
   --bg: hsl(0 0% 7%);
-  --bg-elevated: hsl(0 0% 12%);
+  --bg-muted: hsl(0 0% 12%);
+  --bg-muted-30: hsla(0,0%,15%,0.3);
   --fg: hsl(0 0% 90%);
   --fg-muted: hsl(0 0% 55%);
   --border: hsl(0 0% 18%);
-  --hover: hsl(0 0% 14%);
+  --hover: hsla(0,0%,20%,0.3);
   --highlight: hsl(0 0% 20%);
   --accent: hsl(0 0% 90%);
-  --bar-bg: hsl(0 0% 10%);
-  --scrollbar-bg: hsl(0 0% 10%);
-  --scrollbar-thumb: hsl(0 0% 35%);
   --icon-invert: 85%;
   color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: hsl(0 0% 7%);
+    --bg-muted: hsl(0 0% 12%);
+    --bg-muted-30: hsla(0,0%,15%,0.3);
+    --fg: hsl(0 0% 90%);
+    --fg-muted: hsl(0 0% 55%);
+    --border: hsl(0 0% 18%);
+    --hover: hsla(0,0%,20%,0.3);
+    --highlight: hsl(0 0% 20%);
+    --accent: hsl(0 0% 90%);
+    --icon-invert: 85%;
+    color-scheme: dark;
+  }
 }
 
 /* -- Base ------------------------------------------------------------------ */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
 
-::-webkit-scrollbar { background: var(--scrollbar-bg); width: 8px; }
-::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); }
+* { box-sizing: border-box; }
+
+::-webkit-scrollbar { background: var(--bg); width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--border); }
 
 html {
   color: var(--fg);
@@ -84,9 +64,14 @@ html {
   font-family: 'IBM Plex Sans', -apple-system, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+  scrollbar-color: var(--border) var(--bg);
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  padding: 48px 40px 100px 40px;
 }
 
 a {
@@ -96,92 +81,123 @@ a {
   outline: 0;
 }
 
-a:hover {
-  color: var(--accent);
-}
+a:hover { color: var(--accent); }
 
-a.linkSelected {
-  border-bottom: 1px solid var(--fg);
-}
+a.linkSelected { border-bottom: 1px solid var(--fg); }
 
-body {
-  margin: 0;
-  padding: 40px 40px 80px 40px;
-  max-width: 900px;
-}
+div, i { background-size: cover !important; }
 
-div, i {
-  background-size: cover !important;
-}
-
-/* -- Header / Title -------------------------------------------------------- */
-h1 {
-  display: block;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--fg-muted);
-  margin: 0 0 24px 0;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-  word-wrap: break-word;
-  cursor: pointer;
-}
-
-h1 > span:hover {
-  color: var(--accent);
-}
-
-/* -- Theme Toggle ---------------------------------------------------------- */
-#themeToggle {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-  background: none;
+/* -- Page Container (cell-strip article) ----------------------------------- */
+#page {
   border: 1px solid var(--border);
-  color: var(--fg-muted);
-  font-size: 14px;
+  max-width: 860px;
+}
+
+/* -- Rows ------------------------------------------------------------------ */
+.row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+}
+
+.row:last-child { border-bottom: none; }
+
+/* -- Cells ----------------------------------------------------------------- */
+.cell {
+  padding: 8px 12px;
+}
+
+/* -- Header Row ------------------------------------------------------------ */
+.row-header {
+  min-height: 48px;
+}
+
+.cell-label {
+  width: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.15s;
-  z-index: 50;
-  padding: 0;
+  border-right: 1px solid var(--border);
+  background: var(--bg-muted-30);
+  flex-shrink: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
 }
 
-#themeToggle:hover {
-  border-color: var(--fg);
-  color: var(--fg);
-}
-
-/* -- Action Icons (upload, new folder, etc.) ------------------------------- */
-#icHolder {
-  display: inline-block;
-  position: fixed;
-  top: 14px;
-  right: 52px;
-  z-index: 50;
-}
-
-.ic {
-  width: 28px;
-  height: 28px;
+.cell-path {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
   cursor: pointer;
-  display: inline-block;
-  overflow: hidden;
-  color: transparent;
-  margin-left: 4px;
-  opacity: 0.5;
-  filter: invert(var(--icon-invert));
-  transition: opacity 0.15s;
 }
 
-.ic:hover {
-  opacity: 1;
+.cell-path h1 {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
+}
+
+.cell-path h1 > span:hover {
+  color: var(--fg-muted);
+}
+
+.cell-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-left: 1px solid var(--border);
+  background: var(--bg-muted-30);
+  flex-shrink: 0;
+  padding: 6px 10px;
+}
+
+/* -- Column Headers -------------------------------------------------------- */
+.row-colheader {
+  background: var(--bg-muted-30);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  min-height: 28px;
+}
+
+.cell-col-icon {
+  width: 56px;
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.cell-col-size {
+  width: 72px;
+  text-align: right;
+  padding: 6px 12px;
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.cell-col-name {
+  flex: 1;
+  padding: 6px 12px;
+}
+
+/* -- Listing --------------------------------------------------------------- */
+#listing {
+  min-height: 120px;
 }
 
 /* -- Table ----------------------------------------------------------------- */
@@ -191,19 +207,20 @@ table {
 }
 
 tr {
-  line-height: 32px;
+  line-height: 36px;
   border-bottom: 1px solid var(--border);
   transition: background-color 0.1s;
 }
 
-tr:hover {
-  background-color: var(--hover);
-}
+tr:last-child { border-bottom: none; }
+
+tr:hover { background-color: var(--hover); }
 
 td.iconRow {
   text-align: center;
-  width: 20px;
-  padding-right: 8px;
+  width: 56px;
+  padding: 0;
+  border-right: 1px solid var(--border);
 }
 
 .icon {
@@ -212,22 +229,22 @@ td.iconRow {
   display: block;
   cursor: pointer;
   filter: invert(var(--icon-invert));
-  opacity: 0.6;
+  opacity: 0.5;
+  margin: 0 auto;
 }
 
 td.file-size {
   text-align: right;
-  padding-left: 16px;
-  width: 60px;
+  width: 72px;
+  padding: 0 12px;
+  border-right: 1px solid var(--border);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
   color: var(--fg-muted);
   white-space: nowrap;
 }
 
-td.file-size code {
-  font-family: inherit;
-}
+td.file-size code { font-family: inherit; }
 
 .arrow {
   height: 14px;
@@ -235,17 +252,17 @@ td.file-size code {
   text-align: center;
   padding-left: 8px;
   filter: invert(var(--icon-invert));
-  opacity: 0.3;
+  opacity: 0.25;
   padding-bottom: 2px;
 }
 
 .arrow-selected {
   height: inherit;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 td.display-name {
-  padding-left: 8px;
+  padding-left: 10px;
   text-overflow: ellipsis;
   overflow-x: hidden;
   white-space: nowrap;
@@ -253,14 +270,71 @@ td.display-name {
   font-size: 14px;
 }
 
-.highlight {
-  background-color: var(--highlight);
+.highlight { background-color: var(--highlight); }
+
+/* -- Footer Row ------------------------------------------------------------ */
+.row-footer {
+  min-height: 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--fg-muted);
+  background: var(--bg-muted-30);
 }
 
-/* -- Upload Bar ------------------------------------------------------------ */
-.uploading-table {
-  padding-bottom: 80px;
+.cell-footer-help {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  opacity: 0.6;
 }
+
+.cell-footer-brand {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-left: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+
+/* -- Theme Toggle Button --------------------------------------------------- */
+#themeToggle {
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  transition: border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+#themeToggle:hover {
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+/* -- Action Icons ---------------------------------------------------------- */
+#icHolder { display: none; }
+
+.ic {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  color: transparent;
+  opacity: 0.45;
+  filter: invert(var(--icon-invert));
+  transition: opacity 0.15s;
+}
+
+.ic:hover { opacity: 1; }
+
+/* -- Upload Bar ------------------------------------------------------------ */
+.uploading-table { padding-bottom: 80px; }
 
 .bar {
   width: 100%;
@@ -270,7 +344,7 @@ td.display-name {
   bottom: 0;
   max-height: 50%;
   overflow-x: hidden;
-  background-color: var(--bar-bg);
+  background-color: var(--bg);
   border-top: 1px solid var(--border);
 }
 
@@ -278,6 +352,7 @@ td.display-name {
   width: 100%;
   font-size: 12px;
   color: var(--fg-muted);
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 .barPc {
@@ -302,9 +377,9 @@ td.display-name {
   position: fixed;
   inset: 0;
   z-index: 999;
-  border: 2px dashed var(--fg-muted);
+  border: 1px solid var(--fg-muted);
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 500;
   color: var(--fg-muted);
@@ -313,14 +388,13 @@ td.display-name {
   padding: 20px;
 }
 
-#drop-grid::after {
-  content: "Drop here to upload";
-}
+#drop-grid::after { content: "Drop here to upload"; }
 
 /* -- Text Editor ----------------------------------------------------------- */
 #text-editor {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 13px;
+  line-height: 1.6;
   background-color: var(--bg);
   color: var(--fg);
   position: fixed;
@@ -336,11 +410,10 @@ td.display-name {
   border: none;
   resize: none;
   box-sizing: border-box;
-  line-height: 1.6;
 }
 
-/* -- Image Viewer ---------------------------------------------------------- */
-#pics {
+/* -- Media Viewers --------------------------------------------------------- */
+#pics, #pdf, #video {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   justify-content: center;
@@ -361,36 +434,7 @@ td.display-name {
   image-orientation: from-image;
 }
 
-/* -- PDF Viewer ------------------------------------------------------------ */
-#pdf {
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  background-color: hsl(0 0% 0%);
-  inset: 0;
-  overflow: hidden;
-  z-index: 99;
-}
-
-#pdf embed {
-  width: 100%;
-  height: 100%;
-}
-
-/* -- Video Player ---------------------------------------------------------- */
-#video {
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  background-color: hsl(0 0% 0%);
-  inset: 0;
-  overflow: hidden;
-  z-index: 99;
-}
+#pdf embed { width: 100%; height: 100%; }
 
 #videoHolder {
   height: auto;
@@ -398,7 +442,6 @@ td.display-name {
   width: 100%;
   cursor: pointer;
   object-fit: contain;
-  image-orientation: from-image;
 }
 
 #video-dl {
@@ -412,7 +455,7 @@ td.display-name {
   filter: invert(var(--icon-invert));
 }
 
-/* -- Close Button (overlays) ----------------------------------------------- */
+/* -- Close Button ---------------------------------------------------------- */
 #quitAll {
   position: fixed;
   right: 16px;
@@ -425,9 +468,7 @@ td.display-name {
   opacity: 0.7;
 }
 
-#quitAll:hover {
-  opacity: 1;
-}
+#quitAll:hover { opacity: 1; }
 
 /* -- Toast ----------------------------------------------------------------- */
 #toast {
@@ -449,9 +490,7 @@ td.display-name {
   100% { opacity: 0; }
 }
 
-.runFade {
-  animation: fade 3s 1;
-}
+.runFade { animation: fade 3s 1; }
 
 .notif {
   opacity: 0;
@@ -463,14 +502,13 @@ td.display-name {
   filter: invert(var(--icon-invert));
 }
 
-/* -- Help / Sums Tables ---------------------------------------------------- */
+/* -- Help / Sums Overlays -------------------------------------------------- */
 #helpTable,
 #sumsTable {
   border-collapse: collapse;
   width: 70%;
   max-width: 600px;
   margin: 80px auto;
-  overflow-y: auto;
 }
 
 #helpTable td,
@@ -493,17 +531,8 @@ td.display-name {
   font-size: 1em !important;
 }
 
-/* -- Help Message ---------------------------------------------------------- */
-#help_message {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  position: fixed;
-  bottom: 8px;
-  right: 16px;
-  color: var(--fg-muted);
-  opacity: 0.5;
-  user-select: none;
-}
+/* -- Legacy (hidden, replaced by footer) ----------------------------------- */
+#help_message { display: none; }
 
 /* -- Mobile ---------------------------------------------------------------- */
 @media (max-width: 800px) {
@@ -512,44 +541,30 @@ td.display-name {
     user-select: none;
   }
   body {
-    padding: 20px 16px 80px 16px !important;
+    padding: 16px 0 100px 0 !important;
   }
-  tr {
-    line-height: 2.4em !important;
+  #page {
+    border-left: none;
+    border-right: none;
   }
-  .arrow {
-    display: none !important;
-  }
-  td.display-name {
-    padding-left: 12px !important;
-  }
-  #icHolder {
-    top: 12px !important;
-    right: 48px !important;
-  }
-  .ic {
-    display: inherit !important;
-  }
-  .file-size {
-    display: none !important;
-  }
-  #help_message {
-    display: none !important;
-  }
-  #themeToggle {
-    top: 12px;
-    right: 12px;
-  }
+  .cell-label { width: 40px; font-size: 9px; }
+  td.iconRow { width: 40px; }
+  .cell-col-icon { width: 40px; }
+  .cell-col-size, td.file-size { display: none; }
+  .arrow { display: none !important; }
+  td.display-name { padding-left: 10px !important; }
+  tr { line-height: 2.6em !important; }
+  .cell-path h1 { font-size: 12px; }
+  .row-footer { font-size: 10px; }
+  .cell-footer-help { display: none; }
 }
 
-/* -- Icon Classes (preserve original SVG data URIs) ------------------------ */
+/* -- Icon Classes ---------------------------------------------------------- */
 .manualUp {
   display: none;
   margin: unset;
 }
 
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAJFBMVEUAAACZmQAICAj4+Pj//5nMzGb/+/AAAAD/zJkzMwAAAP////+gebovAAAAAXRSTlMAQObYZgAAAAFiS0dECx/XxMAAAAAHdElNRQfiBhgXAy5jJ3EAAAAA1klEQVQoz42RMQ7CMBAEQ0mZIIp0/AGecJFO7kC2FKXmATxikaxUtPS48Ss5XxwnoWI7j3f3fHJV/aFa1KzOuwsRdacFHCjpthjuChbL0U261ipJnDd65IokJhCaGTCzEOZ25SAwaAUgASoOyFFzxWEsEkQGz2BskFJfHMMwWB07AVAXg/QwZscYPzHqXAVicDE4eJ47QOOoHexzhINxQRxIEVkC6I217OGLg9DLIn7qkHHEWiAvEwAdJyQlNKK3gKfcITuxZjzrO+qt2mr/3uj1z1//6AsSG3mwAQQN9wAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOC0wNi0yNFQyMzowMzo0Ni0wNDowMFfZ8nYAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTgtMDYtMjRUMjM6MDM6NDYtMDQ6MDAmhErKAAAAAElFTkSuQmCC");
-}
 
 .icon-large-sad-server {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAHlBMVEUAAACAgIDAwMAAAAD///8A/wAAgAD/AACAgAD//wAxEuVaAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfiBhoALCLL7Xg4AAAAy0lEQVQ4y+WSPQ7CMAyFHbUSa38G5iLBHCkXKBUnQOICDMwgBnMDuEJvi00TKM3L0IWFN/rLs/zsEP2BSiCtm1WsxgqoAChtwqAAGgSYXaztC3So0xywPuwx2JyOM1uNwWRN1RtMUnQ/alVTAtgEqPWw6OJ6WHJA358lGx7GMs0swHwWsGCeAikJEAwst8d9bCh8kCVzz3zxQQpDbe53x6qwyDYnm/lQ0oevIaHNPj2dAEdIHM8aBgbDDgZo0dDQokWwEV8DlqE0sjwBakRwyV+dKtoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDYtMjZUMDA6NDQ6MzQtMDQ6MDBDgg+9AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA2LTI2VDAwOjQ0OjM0LTA0OjAwMt+3AQAAAABJRU5ErkJggg==");
