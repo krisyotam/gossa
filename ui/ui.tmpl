@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="theme-color" content="rgb(45,52,54)">
-    <meta name="msapplication-navbutton-color" content="rgb(45,52,54)">
+    <meta name="theme-color" content="#fafafa">
+    <meta name="msapplication-navbutton-color" content="#fafafa">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="manifest" href='data:application/manifest+json,{"name":"{{.Title}}","short_name":"{{.Title}}","description":"  ","icons":[{"src":"data:image/svg+xml;base64,favicon_will_be_here","sizes":"150x150","type":"image/svg+xml"}],"background":"rgb(45,52,54)","theme_color":"rgb(45,52,54)","display":"standalone"}' />
+    <link rel="manifest" href='data:application/manifest+json,{"name":"{{.Title}}","short_name":"{{.Title}}","description":"  ","icons":[{"src":"data:image/svg+xml;base64,favicon_will_be_here","sizes":"150x150","type":"image/svg+xml"}],"background":"#fafafa","theme_color":"#fafafa","display":"standalone"}' />
 
     <title>{{.Title}}</title>
     <link href="data:image/svg+xml;base64,favicon_will_be_here" rel="icon" type="image/svg+xml" />
@@ -62,6 +62,27 @@
         {{end}}
     </div>
 
+    <button id="themeToggle" onclick="toggleTheme()" title="Toggle theme"></button>
+    <script>
+    (function(){
+        var t = localStorage.getItem('gossa-theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+        function u() {
+            var btn = document.getElementById('themeToggle');
+            if (btn) btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '\u263C' : '\u263E';
+        }
+        u();
+        window.toggleTheme = function() {
+            var c = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', c);
+            localStorage.setItem('gossa-theme', c);
+            u();
+        };
+        document.addEventListener('DOMContentLoaded', u);
+    })();
+    </script>
+
     <div id="pics" style="display:none;"> <img draggable="false" onclick="window.picsNav()" id="picsHolder" /></div>
     <div id="video" style="display:none;">
         <div onclick="window.videodl()" class="icon-dl" id="video-dl"></div>
@@ -87,11 +108,11 @@
         </tr>
     {{end}}
     </table>
-    <p id="help_message">Help: Ctrl/Cmd + h<p>
+    <p id="help_message">Ctrl/Cmd + h<p>
 </body>
 <div id="upBar" class="bar">
     <span style="display: none;" class="barName" id="upBarName"></span>
-    <div style="display: none; background-color: green;" class="barPc" id="upBarPc">1%</div>
+    <div style="display: none;" class="barPc" id="upBarPc">1%</div>
 </div>
 <div id="ok" class="notif icon-large-ok"></div>
 <div id="sad" class="notif icon-large-sad-server"></div>
