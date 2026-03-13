@@ -76,7 +76,7 @@
             var btn = document.getElementById('themeToggle');
             if (!btn) return;
             var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-            btn.textContent = dark ? 'light' : 'dark';
+            btn.textContent = dark ? '\u2600' : '\u263E';
         };
         document.addEventListener('DOMContentLoaded', updateToggle);
     })();
@@ -95,7 +95,7 @@
                     <div onclick="window.displayPad()" class="ic icon-large-pad" title="New text file"></div>
                     <div class="ic icon-large-folder" onclick="window.mkdirBtn()" title="New folder"></div>
                 {{end}}
-                <button id="themeToggle" onclick="toggleTheme()" title="Toggle theme">dark</button>
+                <button id="themeToggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
             </div>
         </div>
 
