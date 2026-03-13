@@ -313,11 +313,12 @@ td.display-name {
   border: none;
   outline: none;
   color: var(--fg-muted);
-  font-size: 18px;
   padding: 4px;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: color 0.15s;
-  white-space: nowrap;
   -webkit-appearance: none;
   appearance: none;
 }
