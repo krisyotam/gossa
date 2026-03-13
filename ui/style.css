@@ -60,9 +60,9 @@
 html {
   color: var(--fg);
   background-color: var(--bg);
-  font-size: 14px;
+  font-size: 15px;
   font-family: 'IBM Plex Sans', -apple-system, Helvetica, Arial, sans-serif;
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
   scrollbar-color: var(--border) var(--bg);
   -webkit-tap-highlight-color: transparent;
@@ -71,7 +71,11 @@ html {
 
 body {
   margin: 0;
-  padding: 48px 40px 100px 40px;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 a {
@@ -90,7 +94,11 @@ div, i { background-size: cover !important; }
 /* -- Page Container (cell-strip article) ----------------------------------- */
 #page {
   border: 1px solid var(--border);
-  max-width: 860px;
+  width: 92vw;
+  max-width: 960px;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* -- Rows ------------------------------------------------------------------ */
@@ -109,7 +117,7 @@ div, i { background-size: cover !important; }
 
 /* -- Header Row ------------------------------------------------------------ */
 .row-header {
-  min-height: 48px;
+  min-height: 52px;
 }
 
 .cell-label {
@@ -197,6 +205,7 @@ div, i { background-size: cover !important; }
 
 /* -- Listing --------------------------------------------------------------- */
 #listing {
+  flex: 1;
   min-height: 120px;
 }
 
@@ -207,7 +216,7 @@ table {
 }
 
 tr {
-  line-height: 36px;
+  line-height: 40px;
   border-bottom: 1px solid var(--border);
   transition: background-color 0.1s;
 }
@@ -262,12 +271,12 @@ td.file-size code { font-family: inherit; }
 }
 
 td.display-name {
-  padding-left: 10px;
+  padding-left: 12px;
   text-overflow: ellipsis;
   overflow-x: hidden;
   white-space: nowrap;
   max-width: 100px;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .highlight { background-color: var(--highlight); }
@@ -541,11 +550,14 @@ td.display-name {
     user-select: none;
   }
   body {
-    padding: 16px 0 100px 0 !important;
+    padding: 8px 0 !important;
+    align-items: flex-start !important;
   }
   #page {
     border-left: none;
     border-right: none;
+    width: 100vw !important;
+    min-height: 90vh;
   }
   .cell-label { width: 40px; font-size: 9px; }
   td.iconRow { width: 40px; }
