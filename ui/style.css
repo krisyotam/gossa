@@ -222,7 +222,6 @@ tr {
   transition: background-color 0.1s;
 }
 
-tr:last-child { border-bottom: none; }
 
 tr:hover { background-color: var(--hover); }
 
