@@ -207,6 +207,7 @@ div, i { background-size: cover !important; }
 #listing {
   flex: 1;
   min-height: 120px;
+  border-bottom: 1px solid var(--border);
 }
 
 /* -- Table ----------------------------------------------------------------- */
