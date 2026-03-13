@@ -165,11 +165,12 @@ div, i { background-size: cover !important; }
 .cell-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
   border-left: 1px solid var(--border);
   background: var(--bg-muted-30);
   flex-shrink: 0;
-  padding: 6px 10px;
+  width: 52px;
+  padding: 0;
 }
 
 /* -- Column Headers -------------------------------------------------------- */
@@ -386,24 +387,8 @@ td.display-name {
 
 /* -- Drop Zone ------------------------------------------------------------- */
 #drop-grid {
-  align-items: center;
-  display: none;
-  justify-content: center;
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  border: 1px solid var(--fg-muted);
-  text-align: center;
-  font-size: 1.2em;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 500;
-  color: var(--fg-muted);
-  background-color: var(--bg);
-  opacity: 0.95;
-  padding: 20px;
+  display: none !important;
 }
-
-#drop-grid::after { content: "Drop here to upload"; }
 
 /* -- Text Editor ----------------------------------------------------------- */
 #text-editor {
